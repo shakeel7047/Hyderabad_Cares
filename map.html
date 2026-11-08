@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live map · Hyderabad Cares</title>
+<meta name="description" content="Browse reported civic issues across Hyderabad by area and category, with public status tracking.">
+<meta name="theme-color" content="#0f4c52">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html" aria-label="Hyderabad Cares — home">
+      <img class="brand__mark" src="assets/brand/mark.svg" alt="" width="40" height="40">
+      <span class="brand__name">Hyderabad <strong>Cares</strong></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="map.html" aria-current="page">Map</a>
+      <a class="nav__link" href="stats.html">City stats</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="help.html">Help</a>
+      <a class="btn btn--primary btn--sm nav__cta" href="report.html">Report an issue</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="section section--tight">
+    <div class="container">
+      <p class="eyebrow">Live map</p>
+      <h1 class="section-title mt-2" style="font-size:2rem">The city, report by report</h1>
+      <p class="section-sub" style="margin-left:0;text-align:left">Every report is placed near its area on a live OpenStreetMap. Markers are approximate, not exact addresses. The map needs an internet connection; the list below works offline.</p>
+
+      <div class="map-frame">
+        <div id="city-map" class="map-canvas" role="application" aria-label="Map of reported civic issues in Hyderabad, Sindh"></div>
+        <div class="map-note">
+          <span>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Markers show live reports from the database.</span>
+          <a href="https://www.openstreetmap.org/#map=13/25.3960/68.3578" target="_blank" rel="noopener">Open full map ↗</a>
+        </div>
+      </div>
+      <p class="field__hint" data-live-note style="margin-top:.75rem">Loading live reports…</p>
+      <p class="field__hint" data-map-fallback hidden>Interactive map could not load (no internet or CDN blocked). The report list below still works.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Reports</p>
+        <h2 class="section-title mt-2">Filter by category</h2>
+        <p class="section-sub">Showing <strong data-report-count>…</strong> reports. Newest first.</p>
+      </div>
+
+      <div class="filter-bar" role="group" aria-label="Filter reports by category">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" type="button" data-filter="roads" aria-pressed="false">Roads & potholes</button>
+        <button class="filter" type="button" data-filter="lights" aria-pressed="false">Streetlights</button>
+        <button class="filter" type="button" data-filter="water" aria-pressed="false">Water supply</button>
+        <button class="filter" type="button" data-filter="sewage" aria-pressed="false">Drainage & sewage</button>
+        <button class="filter" type="button" data-filter="garbage" aria-pressed="false">Garbage</button>
+        <button class="filter" type="button" data-filter="parks" aria-pressed="false">Parks & trees</button>
+        <button class="filter" type="button" data-filter="safety" aria-pressed="false">Public safety</button>
+        <button class="filter" type="button" data-filter="other" aria-pressed="false">Something else</button>
+      </div>
+
+      <div class="map-toolbar">
+        <p class="field__hint" style="margin:0">Reports load from <code>api/reports.php</code>. Open a photo to see it full size.</p>
+        <button class="btn btn--outline btn--sm" type="button" data-refresh-reports>Refresh reports</button>
+      </div>
+
+      <div class="report-list" data-report-list>
+        <article class="report-row" data-category="lights">
+    <div class="report-row__head">
+      <span class="badge badge--warning">In progress</span>
+      <span>💡 Streetlights</span>
+      <span>· HC-2026-1842</span>
+    </div>
+    <h3 class="report-row__title">Streetlight out on the main market road</h3>
+    <div class="report-row__meta">
+      <span>📍 <b>Latifabad</b></span>
+      <span>🕒 2 days ago</span>
+    </div>
+    
+  </article>
+        <article class="report-row" data-category="sewage">
+    <div class="report-row__head">
+      <span class="badge badge--info">Community verified</span>
+      <span>🌊 Drainage & sewage</span>
+      <span>· HC-2026-1839</span>
+    </div>
+    <h3 class="report-row__title">Sewage overflowing on the service lane</h3>
+    <div class="report-row__meta">
+      <span>📍 <b>Qasimabad</b></span>
+      <span>🕒 3 days ago</span>
+    </div>
+    
+  </article>
+        <article class="report-row" data-category="roads">
+    <div class="report-row__head">
+      <span class="badge badge--success">Resolved</span>
+      <span>🕳️ Roads & potholes</span>
+      <span>· HC-2026-1821</span>
+    </div>
+    <h3 class="report-row__title">Deep potholes near the park entrance</h3>
+    <div class="report-row__meta">
+      <span>📍 <b>Saddar</b></span>
+      <span>🕒 12 days ago</span>
+    </div>
+    
+  </article>
+        <article class="report-row" data-category="garbage">
+    <div class="report-row__head">
+      <span class="badge badge--muted">Reported</span>
+      <span>🗑️ Garbage</span>
+      <span>· HC-2026-1833</span>
+    </div>
+    <h3 class="report-row__title">Garbage pile behind the bazaar shops</h3>
+    <div class="report-row__meta">
+      <span>📍 <b>Shahi Bazaar</b></span>
+      <span>🕒 yesterday</span>
+    </div>
+    
+  </article>
+        <article class="report-row" data-category="safety">
+    <div class="report-row__head">
+      <span class="badge badge--warning">In progress</span>
+      <span>🚨 Public safety</span>
+      <span>· HC-2026-1815</span>
+    </div>
+    <h3 class="report-row__title">Broken footpath slabs by the bus stop</h3>
+    <div class="report-row__meta">
+      <span>📍 <b>Paretabad</b></span>
+      <span>🕒 5 days ago</span>
+    </div>
+    
+  </article>
+        <article class="report-row" data-category="water">
+    <div class="report-row__head">
+      <span class="badge badge--info">Community verified</span>
+      <span>🚰 Water supply</span>
+      <span>· HC-2026-1809</span>
+    </div>
+    <h3 class="report-row__title">Dry water line in the neighbourhood</h3>
+    <div class="report-row__meta">
+      <span>📍 <b>Citizen Colony</b></span>
+      <span>🕒 6 days ago</span>
+    </div>
+    
+  </article>
+      </div>
+      <p class="text-center mt-8 text-muted" data-empty hidden>No reports in this category yet.</p>
+
+      <div class="grid grid--4 mt-10">
+        <div class="card"><span class="badge badge--muted">Reported</span><p class="card__text">Newly submitted. Waiting for a neighbour to confirm.</p></div>
+        <div class="card"><span class="badge badge--info">Community verified</span><p class="card__text">At least two people nearby confirmed it is real.</p></div>
+        <div class="card"><span class="badge badge--warning">In progress</span><p class="card__text">Passed to the responsible office or team.</p></div>
+        <div class="card"><span class="badge badge--success">Resolved</span><p class="card__text">Fixed, with an after photo where possible.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var API_URL = "api/reports.php?limit=200";
+  var AREA_COORDS = {"Latifabad":[25.37,68.35],"Qasimabad":[25.4,68.328],"Saddar":[25.392,68.372],"Hirabad":[25.39,68.365],"Shahi Bazaar":[25.383,68.373],"Paretabad":[25.386,68.345],"Tando Yousuf":[25.415,68.332],"Bhitai Nagar":[25.385,68.318],"Citizen Colony":[25.405,68.345],"Gulistan-e-Sajjad":[25.425,68.345],"Auto Bhan Road":[25.388,68.308],"Wadhu Wah":[25.43,68.33],"SITE Area":[25.368,68.311],"Jamshoro Road":[25.435,68.295]};
+  var CATEGORY_META = {"roads":{"label":"Roads & potholes","icon":"🕳️"},"lights":{"label":"Streetlights","icon":"💡"},"water":{"label":"Water supply","icon":"🚰"},"sewage":{"label":"Drainage & sewage","icon":"🌊"},"garbage":{"label":"Garbage","icon":"🗑️"},"parks":{"label":"Parks & trees","icon":"🌳"},"safety":{"label":"Public safety","icon":"🚨"},"other":{"label":"Something else","icon":"✍️"}};
+  var STATUS_META = {"Reported":{"badge":"badge--muted","label":"Reported","color":"#6b7280"},"Verified":{"badge":"badge--info","label":"Community verified","color":"#2a6f97"},"Progress":{"badge":"badge--warning","label":"In progress","color":"#b97708"},"Resolved":{"badge":"badge--success","label":"Resolved","color":"#1e7a55"}};
+
+  var mapEl = document.getElementById("city-map");
+  var fallback = document.querySelector("[data-map-fallback]");
+  var noteEl = document.querySelector("[data-live-note]");
+  var listEl = document.querySelector("[data-report-list]");
+  var emptyEl = document.querySelector("[data-empty]");
+  var countEl = document.querySelector("[data-report-count]");
+  var refreshBtn = document.querySelector("[data-refresh-reports]");
+
+  var map = null;
+  var markerLayer = null;
+  var currentFilter = "all";
+  var liveReports = [];
+
+  if (mapEl && window.L) {
+    map = L.map(mapEl, { scrollWheelZoom: false }).setView([25.396, 68.3578], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    markerLayer = L.layerGroup().addTo(map);
+  } else if (fallback) {
+    fallback.hidden = false;
+  }
+
+  function esc(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+
+  function hash(text) {
+    var h = 0;
+    for (var i = 0; i < text.length; i += 1) {
+      h = (h * 31 + text.charCodeAt(i)) | 0;
+    }
+    return Math.abs(h);
+  }
+
+  function jitter(id, salt) {
+    return ((hash(id + salt) % 1000) / 1000 - 0.5) * 0.008;
+  }
+
+  function coordsFor(report) {
+    var base = AREA_COORDS[report.area];
+    if (!base) return null;
+    return [
+      base[0] + jitter(report.public_id, "lat"),
+      base[1] + jitter(report.public_id, "lng")
+    ];
+  }
+
+  function timeAgo(value) {
+    if (!value) return "";
+    var then = new Date(value);
+    if (isNaN(then.getTime())) return "";
+    var seconds = Math.max(0, (Date.now() - then.getTime()) / 1000);
+    if (seconds < 60) return "just now";
+    var minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return minutes + (minutes === 1 ? " minute ago" : " minutes ago");
+    var hours = Math.floor(minutes / 60);
+    if (hours < 24) return hours + (hours === 1 ? " hour ago" : " hours ago");
+    var days = Math.floor(hours / 24);
+    if (days < 30) return days + (days === 1 ? " day ago" : " days ago");
+    var months = Math.floor(days / 30);
+    if (months < 12) return months + (months === 1 ? " month ago" : " months ago");
+    var years = Math.floor(months / 12);
+    return years + (years === 1 ? " year ago" : " years ago");
+  }
+
+  function setNote(text, isError) {
+    if (!noteEl) return;
+    noteEl.textContent = text;
+    noteEl.style.color = isError ? "#9a3b2d" : "";
+  }
+
+  function reportRowMarkup(report) {
+    var cat = CATEGORY_META[report.category] || { label: report.category, icon: "•" };
+    var status = STATUS_META[report.status] || { label: report.status, badge: "badge--muted" };
+    var html = '<div class="report-row__head">' +
+      '<span class="badge ' + status.badge + '">' + esc(status.label) + '</span>' +
+      '<span>' + cat.icon + ' ' + esc(cat.label) + '</span>' +
+      '<span>· ' + esc(report.public_id) + '</span>' +
+      '</div>' +
+      '<h3 class="report-row__title">' + esc(report.title) + '</h3>' +
+      '<div class="report-row__meta">' +
+      '<span>📍 <b>' + esc(report.area) + '</b>' + (report.landmark ? ' · ' + esc(report.landmark) : '') + '</span>' +
+      '<span>🕒 ' + esc(timeAgo(report.created_at)) + '</span>' +
+      '</div>';
+
+    if (report.photo_url) {
+      html += '<a class="report-row__photo" href="' + esc(report.photo_url) + '" target="_blank" rel="noopener">' +
+        '<img src="' + esc(report.photo_url) + '" alt="Photo attached to report ' + esc(report.public_id) + '" loading="lazy">' +
+        '</a>';
+    }
+
+    return html;
+  }
+
+  function popupMarkup(report) {
+    var cat = CATEGORY_META[report.category] || { label: report.category };
+    var status = STATUS_META[report.status] || { label: report.status, color: "#6b7280" };
+    var html = '<strong>' + esc(report.title) + '</strong><br>' +
+      esc(cat.label) + ' · ' + esc(report.area) + '<br>' +
+      '<span style="color:' + (status.color || "#6b7280") + ';font-weight:700">' + esc(status.label) + '</span>' +
+      ' · ' + esc(report.public_id) + '<br>' +
+      '<span style="color:#5c6560">' + esc(timeAgo(report.created_at)) + '</span>';
+    if (report.photo_url) {
+      html += '<br><a href="' + esc(report.photo_url) + '" target="_blank" rel="noopener">View photo ↗</a>';
+    }
+    return html;
+  }
+
+  function applyFilter(value) {
+    currentFilter = value;
+
+    document.querySelectorAll("[data-filter]").forEach(function (button) {
+      button.setAttribute("aria-pressed", button.getAttribute("data-filter") === value ? "true" : "false");
+    });
+
+    var shown = 0;
+    document.querySelectorAll("[data-category]").forEach(function (row) {
+      var match = value === "all" || row.getAttribute("data-category") === value;
+      row.hidden = !match;
+      if (match) shown += 1;
+    });
+
+    if (emptyEl) emptyEl.hidden = shown !== 0;
+
+    if (markerLayer) {
+      markerLayer.eachLayer(function (marker) {
+        var match = value === "all" || marker.hcCategory === value;
+        marker.setStyle({ opacity: match ? 1 : 0.12, fillOpacity: match ? 1 : 0.12 });
+      });
+    }
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    listEl.innerHTML = "";
+    liveReports.forEach(function (report) {
+      var article = document.createElement("article");
+      article.className = "report-row";
+      article.setAttribute("data-category", report.category);
+      article.innerHTML = reportRowMarkup(report);
+      listEl.appendChild(article);
+    });
+    applyFilter(currentFilter);
+  }
+
+  function renderMarkers() {
+    if (!map || !markerLayer) return;
+    markerLayer.clearLayers();
+    var bounds = [];
+
+    liveReports.forEach(function (report) {
+      var position = coordsFor(report);
+      if (!position) return;
+      var status = STATUS_META[report.status] || { color: "#6b7280" };
+      var marker = L.circleMarker(position, {
+        radius: 9,
+        color: "#ffffff",
+        weight: 2,
+        fillColor: status.color || "#6b7280",
+        fillOpacity: 1
+      });
+      marker.bindPopup(popupMarkup(report));
+      marker.hcCategory = report.category;
+      markerLayer.addLayer(marker);
+      bounds.push(position);
+    });
+
+    if (bounds.length > 1) {
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+    } else if (bounds.length === 1) {
+      map.setView(bounds[0], 14);
+    }
+
+    applyFilter(currentFilter);
+  }
+
+  function loadReports() {
+    setNote("Loading live reports…", false);
+    if (refreshBtn) refreshBtn.disabled = true;
+
+    fetch(API_URL, { headers: { Accept: "application/json" }, cache: "no-store" })
+      .then(function (response) {
+        return response.json().catch(function () {
+          throw new Error("The server did not return valid JSON.");
+        }).then(function (data) {
+          if (!response.ok || !data.ok) throw new Error(data.error || "Could not load reports.");
+          return data;
+        });
+      })
+      .then(function (data) {
+        liveReports = data.reports || [];
+        if (countEl) countEl.textContent = String(liveReports.length);
+        renderList();
+        renderMarkers();
+
+        if (liveReports.length) {
+          setNote("Showing " + liveReports.length + " live report" +
+            (liveReports.length === 1 ? "" : "s") +
+            " from the database, newest first. Refresh to see new submissions.", false);
+        } else {
+          setNote("No reports in the database yet. Be the first to report an issue.", false);
+        }
+      })
+      .catch(function (error) {
+        if (countEl) countEl.textContent = "sample";
+        setNote("Live reports could not load (" + error.message +
+          "). The list below shows sample reports. Check that Apache and MySQL are running and that the database is installed.", true);
+        applyFilter(currentFilter);
+      })
+      .finally(function () {
+        if (refreshBtn) refreshBtn.disabled = false;
+      });
+  }
+
+  document.querySelectorAll("[data-filter]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      applyFilter(button.getAttribute("data-filter"));
+    });
+  });
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", loadReports);
+  }
+
+  loadReports();
+})();
+</script>
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a class="brand" href="index.html">
+          <img class="brand__mark" src="assets/brand/mark.svg" alt="" width="40" height="40">
+          <span class="brand__name">Hyderabad <strong>Cares</strong></span>
+        </a>
+        <p>A community reporting platform for Hyderabad, Sindh. See a problem, report it, and follow it until it is fixed.</p>
+      </div>
+      <div>
+        <p class="site-footer__heading">Explore</p>
+        <div class="site-footer__links">
+          <a href="report.html">Report an issue</a>
+          <a href="map.html">Live map</a>
+          <a href="stats.html">City stats</a>
+          <a href="about.html">About</a>
+        </div>
+      </div>
+      <div>
+        <p class="site-footer__heading">Info</p>
+        <div class="site-footer__links">
+          <a href="help.html">Help &amp; FAQ</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="mailto:hello@hyderabadcares.example">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Hyderabad Cares. An independent community project — not affiliated with any government body.</p>
+      <p>Hero photo: <a href="https://commons.wikimedia.org/wiki/File:PK_Hyderabad_asv2020-02_img15_Navalrai_Market_tower.jpg" target="_blank" rel="noopener">Navalrai Clock Tower</a> by A.Savin, Free Art License (FAL), via Wikimedia Commons.</p>
+      <p>Demo data notice: the city statistics on this site are sample numbers. Reports submitted through the form are real and stored in the site database.</p>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

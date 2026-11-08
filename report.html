@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report an issue · Hyderabad Cares</title>
+<meta name="description" content="Report a civic issue in Hyderabad in under a minute. Add a photo, landmark, and description. No account needed.">
+<meta name="theme-color" content="#0f4c52">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html" aria-label="Hyderabad Cares — home">
+      <img class="brand__mark" src="assets/brand/mark.svg" alt="" width="40" height="40">
+      <span class="brand__name">Hyderabad <strong>Cares</strong></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="map.html">Map</a>
+      <a class="nav__link" href="stats.html">City stats</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="help.html">Help</a>
+      <a class="btn btn--primary btn--sm nav__cta" href="report.html">Report an issue</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <section class="section section--tight">
+    <div class="container">
+      <p class="eyebrow">Report an issue</p>
+      <h1 class="section-title mt-2" style="font-size:2rem">What's wrong? Tell us.</h1>
+      <p class="section-sub" style="margin-left:0;text-align:left">The more specific you are, the faster it can be verified and fixed. Fields marked <span style="color:var(--color-clay)">*</span> are required.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="grid grid--2" style="align-items:start;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+        <div class="card">
+          <form class="form-grid" data-report-form novalidate method="post" action="api/reports.php" enctype="multipart/form-data">
+            <div class="sr-only" aria-hidden="true">
+              <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <div class="form-grid form-grid--2">
+              <label class="field">
+                <span class="field__label">Category <span>*</span></span>
+                <select class="select" name="category" required>
+                  <option value="">Choose one</option>
+                  <option value="roads">Roads & potholes</option>
+                  <option value="lights">Streetlights</option>
+                  <option value="water">Water supply</option>
+                  <option value="sewage">Drainage & sewage</option>
+                  <option value="garbage">Garbage</option>
+                  <option value="parks">Parks & trees</option>
+                  <option value="safety">Public safety</option>
+                  <option value="other">Something else</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label">Area <span>*</span></span>
+                <select class="select" name="area" required>
+                  <option value="">Choose your area</option>
+                  <option value="Latifabad">Latifabad</option>
+                  <option value="Qasimabad">Qasimabad</option>
+                  <option value="Saddar">Saddar</option>
+                  <option value="Hirabad">Hirabad</option>
+                  <option value="Shahi Bazaar">Shahi Bazaar</option>
+                  <option value="Paretabad">Paretabad</option>
+                  <option value="Tando Yousuf">Tando Yousuf</option>
+                  <option value="Bhitai Nagar">Bhitai Nagar</option>
+                  <option value="Citizen Colony">Citizen Colony</option>
+                  <option value="Gulistan-e-Sajjad">Gulistan-e-Sajjad</option>
+                  <option value="Auto Bhan Road">Auto Bhan Road</option>
+                  <option value="Wadhu Wah">Wadhu Wah</option>
+                  <option value="SITE Area">SITE Area</option>
+                  <option value="Jamshoro Road">Jamshoro Road</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="field">
+              <span class="field__label">Nearest landmark <span>*</span></span>
+              <input class="input" type="text" name="landmark" required maxlength="120" placeholder="e.g. near Rani Bagh gate, Thandi Sarak">
+              <span class="field__hint">A shop, school, mosque, or chowk that helps someone find the exact spot.</span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Short title <span>*</span></span>
+              <input class="input" type="text" name="title" required maxlength="90" placeholder="e.g. Streetlight not working outside the clinic">
+            </label>
+
+            <label class="field">
+              <span class="field__label">What is wrong? <span>*</span></span>
+              <textarea class="textarea" name="details" required maxlength="1200" placeholder="How long has it been like this? Is it blocking people, traffic, or water? Anything else others should know."></textarea>
+              <span class="field__hint">Please do not include CNIC numbers, other people's phone numbers, or private details.</span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Photo (optional)</span>
+              <input class="input" type="file" name="photo" accept="image/*">
+              <span class="field__hint">A clear, wide photo taken from the road helps the most. Avoid photos of people's faces.</span>
+            </label>
+
+            <div class="form-grid form-grid--2">
+              <label class="field">
+                <span class="field__label">Your name (optional)</span>
+                <input class="input" type="text" name="name" maxlength="80" autocomplete="name">
+              </label>
+              <label class="field">
+                <span class="field__label">Phone or email (optional)</span>
+                <input class="input" type="text" name="contact" maxlength="120" autocomplete="email" placeholder="Only if you want updates">
+              </label>
+            </div>
+
+            <label class="check">
+              <input type="checkbox" name="consent" required>
+              <span>I confirm this report is accurate to the best of my knowledge, and I am okay with it being shown publicly (without my contact details). <span style="color:var(--color-clay)">*</span></span>
+            </label>
+
+            <div>
+              <button class="btn btn--primary" type="submit">Submit report</button>
+              <p class="field__hint">Your report goes straight to the community database. Photos up to 5 MB (JPG, PNG, or WebP).</p>
+            </div>
+
+            <p class="note-box" data-report-error hidden style="border-left-color:var(--color-danger);background:#fbe1dc;color:#9a3b2d" role="alert"></p>
+          </form>
+
+          <div data-report-success hidden>
+            <div class="card card--flat" style="text-align:center;padding:2rem 1.25rem">
+              <div style="font-size:2rem;line-height:1">✅</div>
+              <h2 class="card__title mt-4" style="font-size:1.25rem">Report received</h2>
+              <p class="card__text">Your report ID is</p>
+              <p style="font-family:var(--font-mono);font-size:1.25rem;font-weight:700;color:var(--color-teal);margin-top:.5rem" data-report-id>HC-2026-0000</p>
+              <p class="card__text">It is saved in the database and will appear on the live map. Keep this ID to track the report.</p>
+              <div class="mt-6" style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+                <button class="btn btn--outline btn--sm" type="button" data-copy-id>Copy ID</button>
+                <a class="btn btn--dark btn--sm" href="map.html">View on the map</a>
+                <button class="btn btn--outline btn--sm" type="button" data-report-reset>Report another issue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="stack">
+          <div class="card card--flat">
+            <h2 class="card__title">What makes a good report</h2>
+            <ul class="card__text" style="list-style:disc;padding-left:1.1rem">
+              <li>An exact landmark, not just the area name.</li>
+              <li>One problem per report.</li>
+              <li>A photo from the road, in daylight if possible.</li>
+              <li>Who it affects — pedestrians, bikers, residents.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2 class="card__title">What happens next?</h2>
+            <ol class="card__text" style="list-style:decimal;padding-left:1.1rem">
+              <li><strong>Reported</strong> — it appears on the map.</li>
+              <li><strong>Community verified</strong> — neighbours confirm it.</li>
+              <li><strong>In progress</strong> — the responsible office has it.</li>
+              <li><strong>Resolved</strong> — with a photo as evidence.</li>
+            </ol>
+          </div>
+          <div class="card card--flat">
+            <h2 class="card__title">Emergency?</h2>
+            <p class="card__text">This platform is not for emergencies. For a live hazard, fire, or medical emergency, call the local emergency services first.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a class="brand" href="index.html">
+          <img class="brand__mark" src="assets/brand/mark.svg" alt="" width="40" height="40">
+          <span class="brand__name">Hyderabad <strong>Cares</strong></span>
+        </a>
+        <p>A community reporting platform for Hyderabad, Sindh. See a problem, report it, and follow it until it is fixed.</p>
+      </div>
+      <div>
+        <p class="site-footer__heading">Explore</p>
+        <div class="site-footer__links">
+          <a href="report.html">Report an issue</a>
+          <a href="map.html">Live map</a>
+          <a href="stats.html">City stats</a>
+          <a href="about.html">About</a>
+        </div>
+      </div>
+      <div>
+        <p class="site-footer__heading">Info</p>
+        <div class="site-footer__links">
+          <a href="help.html">Help &amp; FAQ</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="mailto:hello@hyderabadcares.example">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Hyderabad Cares. An independent community project — not affiliated with any government body.</p>
+      <p>Hero photo: <a href="https://commons.wikimedia.org/wiki/File:PK_Hyderabad_asv2020-02_img15_Navalrai_Market_tower.jpg" target="_blank" rel="noopener">Navalrai Clock Tower</a> by A.Savin, Free Art License (FAL), via Wikimedia Commons.</p>
+      <p>Demo data notice: the city statistics on this site are sample numbers. Reports submitted through the form are real and stored in the site database.</p>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

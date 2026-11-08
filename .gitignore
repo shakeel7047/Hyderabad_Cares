@@ -1,0 +1,6 @@
+/api/uploads/*
+!/api/uploads/.htaccess
+*.log
+*.sql.gz
+.DS_Store
+Thumbs.db
