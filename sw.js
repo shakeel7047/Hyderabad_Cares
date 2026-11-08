@@ -2,7 +2,7 @@
    Bump VERSION whenever you change the site's CSS, JS, images or page shell,
    otherwise visitors may keep seeing the cached copy for a while. */
 
-const VERSION = "hc-v1";
+const VERSION = "hc-v2";
 
 const CORE = [
   "./",

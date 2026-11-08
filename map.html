@@ -173,6 +173,7 @@
   "use strict";
 
   var API_URL = "api/reports.php?limit=200";
+  var isGithubPagesPreview = location.hostname.endsWith(".github.io");
   var AREA_COORDS = {"Latifabad":[25.37,68.35],"Qasimabad":[25.4,68.328],"Saddar":[25.392,68.372],"Hirabad":[25.39,68.365],"Shahi Bazaar":[25.383,68.373],"Paretabad":[25.386,68.345],"Tando Yousuf":[25.415,68.332],"Bhitai Nagar":[25.385,68.318],"Citizen Colony":[25.405,68.345],"Gulistan-e-Sajjad":[25.425,68.345],"Auto Bhan Road":[25.388,68.308],"Wadhu Wah":[25.43,68.33],"SITE Area":[25.368,68.311],"Jamshoro Road":[25.435,68.295]};
   var CATEGORY_META = {"roads":{"label":"Roads & potholes","icon":"🕳️"},"lights":{"label":"Streetlights","icon":"💡"},"water":{"label":"Water supply","icon":"🚰"},"sewage":{"label":"Drainage & sewage","icon":"🌊"},"garbage":{"label":"Garbage","icon":"🗑️"},"parks":{"label":"Parks & trees","icon":"🌳"},"safety":{"label":"Public safety","icon":"🚨"},"other":{"label":"Something else","icon":"✍️"}};
   var STATUS_META = {"Reported":{"badge":"badge--muted","label":"Reported","color":"#6b7280"},"Verified":{"badge":"badge--info","label":"Community verified","color":"#2a6f97"},"Progress":{"badge":"badge--warning","label":"In progress","color":"#b97708"},"Resolved":{"badge":"badge--success","label":"Resolved","color":"#1e7a55"}};
@@ -358,6 +359,17 @@
   }
 
   function loadReports() {
+    if (isGithubPagesPreview) {
+      var sampleCount = listEl ? listEl.querySelectorAll(".report-row").length : 0;
+      if (countEl) countEl.textContent = "sample";
+      setNote("Showing sample reports for this client preview. Live reports will be available after PHP/MySQL hosting.", false);
+      if (refreshBtn) refreshBtn.hidden = true;
+      var toolbarNote = document.querySelector(".map-toolbar .field__hint");
+      if (toolbarNote) toolbarNote.textContent = sampleCount + " sample reports shown for preview only.";
+      applyFilter(currentFilter);
+      return;
+    }
+
     setNote("Loading live reports…", false);
     if (refreshBtn) refreshBtn.disabled = true;
 

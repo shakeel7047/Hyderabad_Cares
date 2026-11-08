@@ -2,6 +2,25 @@
 (function () {
   "use strict";
 
+  var isGithubPagesPreview = location.hostname.endsWith(".github.io");
+
+  if (isGithubPagesPreview) {
+    var previewBanner = document.createElement("aside");
+    previewBanner.className = "preview-banner";
+    previewBanner.setAttribute("role", "status");
+    previewBanner.textContent =
+      "Client preview — sample data only. Report submissions and live updates will be enabled after PHP/MySQL hosting.";
+    var header = document.querySelector(".site-header");
+    if (header) header.insertAdjacentElement("afterend", previewBanner);
+
+    document.querySelectorAll(".site-footer__bottom p").forEach(function (paragraph) {
+      if (paragraph.textContent.indexOf("Demo data notice:") === 0) {
+        paragraph.textContent =
+          "Preview notice: city statistics and sample reports are illustrative. Reports cannot be submitted on this static preview.";
+      }
+    });
+  }
+
   /* ---- mobile nav ---- */
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.querySelector(".nav");
@@ -20,6 +39,16 @@
   /* ---- report form → api/reports.php ---- */
   var form = document.querySelector("[data-report-form]");
   if (form) {
+    if (isGithubPagesPreview) {
+      form.hidden = true;
+      var previewNotice = document.createElement("p");
+      previewNotice.className = "note-box";
+      previewNotice.setAttribute("role", "status");
+      previewNotice.textContent =
+        "Report submission is disabled in this client preview. It will be available after the PHP/MySQL backend is deployed.";
+      form.parentNode.insertBefore(previewNotice, form);
+    }
+
     var success = document.querySelector("[data-report-success]");
     var errorBox = document.querySelector("[data-report-error]");
     var idEl = document.querySelector("[data-report-id]");
