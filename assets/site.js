@@ -1,4 +1,4 @@
-/* Hyderabad Cares — small vanilla JS (no dependencies) */
+/* FixMyHyderabad — small vanilla JS (no dependencies) */
 (function () {
   "use strict";
 
@@ -224,7 +224,7 @@
           .then(function (choice) {
             if (choice.outcome === "accepted") {
               setInstallStatus(
-                "Installing — look for the Hyderabad Cares icon on your home screen."
+                "Installing — look for the FixMyHyderabad icon on your home screen."
               );
             } else {
               setInstallStatus("No problem. You can install any time from this page.");
@@ -241,7 +241,7 @@
     });
 
     window.addEventListener("appinstalled", function () {
-      setInstallStatus("Installed. Open Hyderabad Cares from your home screen.");
+      setInstallStatus("Installed. Open FixMyHyderabad from your home screen.");
       installButtons.forEach(function (button) {
         button.hidden = true;
       });
