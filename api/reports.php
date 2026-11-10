@@ -141,7 +141,7 @@ function handle_create(): void
 
     $publicId = null;
     for ($attempt = 0; $attempt < 6; $attempt++) {
-        $candidate = 'HC-' . date('Y') . '-' . str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+        $candidate = 'FMH-' . date('Y') . '-' . str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
         $check = $pdo->prepare('SELECT 1 FROM reports WHERE public_id = :pid');
         $check->execute([':pid' => $candidate]);
         if (!$check->fetchColumn()) {

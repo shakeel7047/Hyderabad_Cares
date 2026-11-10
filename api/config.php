@@ -1,6 +1,6 @@
 <?php
 /**
- * Hyderabad Cares — shared configuration and helpers.
+ * FixMyHyderabad — shared configuration and helpers.
  * XAMPP defaults: user "root", empty password, host 127.0.0.1.
  * Change these values on Hostinger.
  */
@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 const DB_HOST = '127.0.0.1';
-const DB_NAME = 'hyderabad_cares';
+const DB_NAME = 'fixmyhyderabad';
 const DB_USER = 'root';
 const DB_PASS = '';
 

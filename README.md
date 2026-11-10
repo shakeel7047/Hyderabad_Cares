@@ -1,4 +1,4 @@
-# Hyderabad Cares
+# FixMyHyderabad
 
 A civic reporting website for **Hyderabad, Sindh** — same theme structure and
 reporting pattern as the reference site, with a new brand, new palette, and all
@@ -130,7 +130,7 @@ framework, no Composer, no Node on the server.
 ### Local setup
 
 XAMPP defaults are used: host `127.0.0.1`, user `root`, empty password,
-database `hyderabad_cares`.
+database `fixmyhyderabad`.
 
 The database and table were created with the one-time installer, which has now
 been deleted. If you ever need to recreate them:
@@ -166,7 +166,7 @@ never exposed. `limit` is clamped to `1–200`.
 | `website` | honeypot — must stay empty |
 
 Responses use `{"ok":true,…}` or `{"ok":false,"error":"…"}`. A successful
-create returns `201` and a public ID such as `HC-2026-1842`.
+create returns `201` and a public ID such as `FMH-2026-1842`.
 
 ### Safety built in
 
@@ -182,7 +182,7 @@ create returns `201` and a public ID such as `HC-2026-1842`.
 There is no admin UI yet. Use phpMyAdmin or SQL:
 
 ```sql
-UPDATE reports SET status = 'Verified' WHERE public_id = 'HC-2026-1842';
+UPDATE reports SET status = 'Verified' WHERE public_id = 'FMH-2026-1842';
 -- Allowed: Reported, Verified, Progress, Resolved
 ```
 
@@ -205,7 +205,7 @@ use this photo; or replace the image with your own and remove the credits.
    and password. Import `api/schema.sql` once.
 2. **Replace demo stats:** the home KPI strip and `stats.html` are still sample
    numbers. Replace them with a query or remove the page until you have data.
-3. **Email:** replace `hello@hyderabadcares.example` in the build script and
+3. **Email:** replace `hello@fixmyhyderabad.example` in the build script and
    `mailto:` links.
 4. **Privacy / Terms:** review with a lawyer, fill in placeholders.
 5. **“Who runs it?”** section on About: add your real team details.

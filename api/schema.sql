@@ -1,11 +1,11 @@
--- Hyderabad Cares — database schema
+-- FixMyHyderabad — database schema
 -- Import this in phpMyAdmin, or open api/install.php?run=1 in the browser.
 
-CREATE DATABASE IF NOT EXISTS `hyderabad_cares`
+CREATE DATABASE IF NOT EXISTS `fixmyhyderabad`
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-USE `hyderabad_cares`;
+USE `fixmyhyderabad`;
 
 CREATE TABLE IF NOT EXISTS `reports` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

@@ -1,8 +1,8 @@
-/* Hyderabad Cares — service worker.
+/* FixMyHyderabad — service worker.
    Bump VERSION whenever you change the site's CSS, JS, images or page shell,
    otherwise visitors may keep seeing the cached copy for a while. */
 
-const VERSION = "hc-v2";
+const VERSION = "fmh-v3";
 
 const CORE = [
   "./",
@@ -46,7 +46,7 @@ self.addEventListener("activate", (event) => {
       .then((keys) =>
         Promise.all(
           keys
-            .filter((key) => key.startsWith("hc-") && key !== VERSION)
+            .filter((key) => (key.startsWith("fmh-") || key.startsWith("hc-")) && key !== VERSION)
             .map((key) => caches.delete(key))
         )
       )
